@@ -22,8 +22,8 @@ Vagrant.configure("2") do |config|
       web.proxy.no_proxy = NO_PROXY
 
       #network setup
-      web.vm.network :hostonly, ip: BASE_HOST_ONLY_NETWORK_WEB
-      web.vm.network  "private_network",  ip: BASE_INT_NETWORK_WEB
+      web.vm.network "private_network", ip:  BASE_INT_NETWORK_WEB, virtualbox__intnet: "intnet"
+      web.vm.network  "private_network",  ip: BASE_HOST_ONLY_NETWORK_WEB
 
       #synced_folder setup
       web.vm.synced_folder "./site_flask", "/home/vagrant/myapp"
@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
         vb.name= " web.m340"
         vb.gui = true
         vb.memory = "2048"
+      end
 
       #flask setup  
       web.vm.provision "shell", path: "scripts/install_flask.sh"

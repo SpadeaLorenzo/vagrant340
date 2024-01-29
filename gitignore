@@ -1,0 +1,24 @@
+# Virtual Environment
+venv/
+
+# Vagrant
+.vagrant/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE files
+.idea/
+.vscode/
+
+# Environment variable file
+.env
+
+# Compiled Python files
+*.pyc
+
+# Dependency folders
+env/

@@ -3,7 +3,7 @@
 # Update the system packages
 sudo apt-get update
 
-# Install Python 3, Pip, and python3-venv
+# Install Python Pip python3-venv
 sudo apt install -y python3 python3-pip python3-venv
 
 # Check if the directory exists
@@ -22,5 +22,7 @@ source /home/vagrant/myapp/flask_env/bin/activate
 # Install Flask & requirements
 pip install -r /home/vagrant/myapp/requirements.txt
 
-# Launching app
-python3 -m flask run --host=0.0.0.0
+# Run Flask app in the background
+nohup python3 -m flask run --host=0.0.0.0 &
+
+sleep 5

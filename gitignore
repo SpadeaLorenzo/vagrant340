@@ -22,3 +22,12 @@ __pycache__/
 
 # Dependency folders
 env/
+
+# Python virtual environment
+flask_env/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

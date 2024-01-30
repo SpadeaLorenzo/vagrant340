@@ -5,6 +5,9 @@ sudo apt-get update
 
 # Install Python Pip python3-venv
 sudo apt install -y python3 python3-pip python3-venv
+# For flask-alchemy
+sudo apt-get install python3-pymysql
+
 
 # Check if the directory exists
 if [ ! -d "/home/vagrant/myapp" ]; then

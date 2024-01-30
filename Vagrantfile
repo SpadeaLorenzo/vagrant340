@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
   # DB machine network variable
   BASE_INT_NETWORK_DB  = "10.10.20.11"
 
-	#PROXY_URL = "http://10.20.5.51:8888"
+	PROXY_URL = "http://10.20.5.51:8888"
 	NO_PROXY = "localhost, 127.0.0.1"
 
 
@@ -41,6 +41,11 @@ Vagrant.configure("2") do |config|
     # DB machine configuration
     config.vm.define "db" do |db|
       db.vm.box = BOX_IMAGE
+         
+      #proxy settings
+      db.proxy.http = PROXY_URL
+      db.proxy.https = PROXY_URL
+      db.proxy.no_proxy = NO_PROXY
 
       # DB machine network setup
       db.vm.network "private_network", ip: BASE_INT_NETWORK_DB, virtualbox__intnet: "intnet"

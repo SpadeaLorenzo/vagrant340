@@ -12,6 +12,28 @@ Vagrant.configure("2") do |config|
 	NO_PROXY = "localhost, 127.0.0.1"
 
 
+    # DB machine configuration
+    config.vm.define "db" do |db|
+      db.vm.box = BOX_IMAGE
+         
+      #proxy settings
+      db.proxy.http = PROXY_URL
+      db.proxy.https = PROXY_URL
+      db.proxy.no_proxy = NO_PROXY
+
+      # DB machine network setup
+      db.vm.network "private_network", ip: BASE_INT_NETWORK_DB, virtualbox__intnet: "intnet"
+
+      db.vm.provider "virtualbox" do |vb|
+        vb.name = "db.m340"
+        vb.gui = true
+        vb.memory = "2048"
+      end
+
+      # DB machine provisioning script
+      db.vm.provision "shell", path: "scripts/install_mysql.sh"
+    end
+
     config.vm.define "web" do |web|
       #configuring OS
       web.vm.box = BOX_IMAGE
@@ -36,27 +58,5 @@ Vagrant.configure("2") do |config|
 
       #flask setup  
       web.vm.provision "shell", path: "scripts/install_flask.sh"
-    end
-
-    # DB machine configuration
-    config.vm.define "db" do |db|
-      db.vm.box = BOX_IMAGE
-         
-      #proxy settings
-      db.proxy.http = PROXY_URL
-      db.proxy.https = PROXY_URL
-      db.proxy.no_proxy = NO_PROXY
-
-      # DB machine network setup
-      db.vm.network "private_network", ip: BASE_INT_NETWORK_DB, virtualbox__intnet: "intnet"
-
-      db.vm.provider "virtualbox" do |vb|
-        vb.name = "db.m340"
-        vb.gui = true
-        vb.memory = "2048"
-      end
-
-      # DB machine provisioning script
-      db.vm.provision "shell", path: "scripts/install_mysql.sh"
     end
 end

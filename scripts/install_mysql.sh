@@ -3,30 +3,25 @@
 # Update the system packages
 sudo apt-get update
 
-# Install MySQL Server
-sudo apt-get install -y mysql-server
+# Install MariaDB Server
+sudo apt-get install -y mariadb-server
 
-# Secure the MySQL installation
+# Secure the MariaDB installation
 sudo mysql_secure_installation
 
-# Log in to MySQL and create a database 
+# Log in to MariaDB and create a database
 sudo mysql -e "CREATE DATABASE flask_test;"
 
-# Create a new user for remote access 
+# Create a new user for remote access
 sudo mysql -e "CREATE USER 'flask_admin'@'%' IDENTIFIED BY 'Password&1';"
 sudo mysql -e "GRANT ALL PRIVILEGES ON flask_test.* TO 'flask_admin'@'%' WITH GRANT OPTION;"
 sudo mysql -e "FLUSH PRIVILEGES;"
 
-# Allow remote access to the MySQL server 
-sudo sed -i 's/10.10.20.11/bind_address/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+# Allow remote access to the MariaDB server
+sudo sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo sed -i "s/mysqlx-bind-address\s*=\s*127.0.0.1/mysqlx-bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
+# Restart MariaDB service
+sudo service mariadb restart
 
-# Restart MySQL service
-sudo service mysql restart
-
-# Log in to MySQL with the new user
-mysql -u flask_admin -p'Password&1' -e "flask_test"
-
-# Create a table and insert some data
-mysql -u flask_admin -p'Password&1' -e "USE flask_test; \
-                                       CREATE TABLE test (id INT PRIMARY KEY, name VARCHAR(255)); \
-                                       INSERT INTO test (id, name) VALUES (1, 'John'), (2, 'Jane'), (3, 'Bob');"
+# Execute the SQL script
+sudo mysql -u flask_admin -p'Password&1' < /home/vagrant/myapp/setup_db.sql

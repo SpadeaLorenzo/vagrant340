@@ -37,4 +37,7 @@ Create provisioning scripts for both the Web and DB VMs. These scripts should co
 
 Execute the command `vagrant up` to launch both the Web and DB VMs. Vagrant will use the specified configurations and run the provisioning scripts to set up the environment. Monitor the output for any errors or warnings during the process.
 
+# To access the page visit:
+`192.168.56.10:5000`
+
 

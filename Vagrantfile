@@ -17,9 +17,9 @@ Vagrant.configure("2") do |config|
       web.vm.box = BOX_IMAGE
       
       #proxy settings
-      #web.proxy.http = PROXY_URL
-      #web.proxy.https = PROXY_URL
-      #web.proxy.no_proxy = NO_PROXY
+      web.proxy.http = PROXY_URL
+      web.proxy.https = PROXY_URL
+      web.proxy.no_proxy = NO_PROXY
 
       #network setup
       web.vm.network "private_network", ip:  BASE_INT_NETWORK_WEB, virtualbox__intnet: "intnet"
